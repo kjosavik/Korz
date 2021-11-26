@@ -1,7 +1,5 @@
 package app;
 
-import app.interaction.Command;
-import app.interaction.Narrator;
 import app.level.Level;
 
 public class Game {
@@ -14,14 +12,13 @@ public class Game {
     }
 
     public void start() {
-        Command command = Narrator.askForCommand(currentLevel.levelDescription());
-        while (!command.quit()) {
-            String feedback = currentLevel.actOnCommand(command, this);
-            command = Narrator.askForCommand(feedback);
-        }
+        currentLevel.start(this);
     }
 
-
+    public void changeLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
+        start();
+    }
 
     public Player getPlayer() {
         return player;
@@ -29,9 +26,5 @@ public class Game {
 
     public Level getCurrentLevel() {
         return currentLevel;
-    }
-
-    public void setCurrentLevel(Level currentLevel) {
-        this.currentLevel = currentLevel;
     }
 }

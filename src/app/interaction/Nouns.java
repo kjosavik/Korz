@@ -1,20 +1,14 @@
 package app.interaction;
 
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Nouns {
-    private static final HashMap<String, Noun> map;
+    private static final HashMap<String, Noun> map = new HashMap<>();
 
     static {
-        map = new HashMap();
-
         insert(List.of("knife"), Noun.KNIFE);
         insert(List.of("coffee", "pot"), Noun.COFFEE_POT);
         insert(List.of("beer", "bottle"), Noun.BEER_BOTTLE);
@@ -25,17 +19,17 @@ public class Nouns {
     }
 
     private Nouns() {}
+
     private static void insert(List<String> keys, Noun value) {
-       keys.forEach(key -> map.put(key, value)); ;
+       keys.forEach(key -> map.put(key, value));
     }
 
-    public static String legalNouns() {
-        String test = String.join("|", map.keySet());
-        return test;
+    public static String pattern() {
+        return String.join("|", map.keySet());
     }
 
     public static Noun find(String input) {
-        List<String> matches= Pattern.compile(legalNouns()).matcher(input).results().map(MatchResult::group).collect(Collectors.toList()); // Save list in case I want to get several matches
+        List<String> matches= Pattern.compile(pattern()).matcher(input).results().map(MatchResult::group).toList();
         if (matches.isEmpty()) {
             return Noun.NONE;
         }
