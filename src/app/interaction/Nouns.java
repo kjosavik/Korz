@@ -14,8 +14,16 @@ public class Nouns {
         insert(List.of("beer", "bottle"), Noun.BEER_BOTTLE);
         insert(List.of("left", "west"), Noun.LEFT);
         insert(List.of("right", "east"), Noun.RIGHT);
-        insert(List.of("up", "north"), Noun.UP);
-        insert(List.of("down", "south"), Noun.DOWN);
+        insert(List.of("north"), Noun.UP);
+        insert(List.of("south"), Noun.DOWN);
+        insert(List.of("button"), Noun.BUTTON);
+        insert(List.of("wall", "walls", "room"), Noun.ROOM);
+        insert(List.of("door"), Noun.DOOR);
+        insert(List.of("light"), Noun.LIGHT);
+        insert(List.of("mirror"), Noun.MIRROR);
+        insert(List.of("toilet", "shit", "piss", "poo", "poop"), Noun.TOILET);
+        insert(List.of("faucet", "sink"), Noun.FAUCET);
+        insert(List.of("self", "yourself"), Noun.SELF);
     }
 
     private Nouns() {}

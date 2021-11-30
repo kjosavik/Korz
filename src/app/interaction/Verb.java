@@ -1,5 +1,5 @@
 package app.interaction;
 
 public enum Verb {
-    GO, USE, LOOK, PICK_UP, DROP, QUIT, NONE
+    GO, USE, EXAMINE, PICK_UP, DROP, QUIT, HELP, WASH, KILL, NONE
 }

@@ -10,11 +10,14 @@ public class Verbs {
 
      static {
          insert(List.of("go", "walk", "run", "prance", "move", "slide"), Verb.GO);
-         insert(List.of("use", "interact", "push", "open", "close"), Verb.USE);
-         insert(List.of("look", "inspect", "see", "examine"), Verb.LOOK);
-         insert(List.of("pick up", "take"), Verb.PICK_UP);
+         insert(List.of("use", "interact", "push", "open", "close", "press", "click"), Verb.USE);
+         insert(List.of("look", "inspect", "see", "examine", "explore", "search"), Verb.EXAMINE);
+         insert(List.of("pick up", "take", "grab"), Verb.PICK_UP);
          insert(List.of("drop", "throw away", "throw"), Verb.DROP);
-         insert(List.of("quit", "!q", "exit"), Verb.QUIT);
+         insert(List.of("quit", "!q", "exit" ), Verb.QUIT);
+         insert(List.of("help"), Verb.HELP);
+         insert(List.of("wash"), Verb.WASH);
+         insert(List.of("kill"), Verb.KILL);
     }
 
     private Verbs() {}
@@ -32,6 +35,7 @@ public class Verbs {
         if (matches.isEmpty()) {
             return Verb.NONE;
         }
+        input = input.replaceFirst(matches.get(0), "");
         return map.get(matches.get(0));
     }
 }

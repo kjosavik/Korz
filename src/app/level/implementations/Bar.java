@@ -1,5 +1,6 @@
-package app.level;
+package app.level.implementations;
 
+import app.Game;
 import app.interaction.UserFeedback;
 
 public class Bar extends Level {
@@ -8,7 +9,7 @@ public class Bar extends Level {
     }
 
     @Override
-    public UserFeedback levelDescription() {
+    public UserFeedback levelDescription(Game game) {
         return null;
     }
 }

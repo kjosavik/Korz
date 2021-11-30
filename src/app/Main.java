@@ -3,14 +3,18 @@ package app;
 import app.interaction.DramaticEffect;
 import app.interaction.Narrator;
 import app.interaction.UserFeedback;
-import app.level.Level;
+import app.level.implementations.Level;
 import app.level.LevelService;
 
 public class Main {
 
     public static void main(String[] args) {
+        final LevelService levelService = LevelService.getInstance();
         final Player player = new Player();
-        final Level startLevel = LevelService.getInstance().getStartLevel();
+
+        levelService.loadLevels();
+
+        final Level startLevel = levelService.getStartLevel();
         final Game game = new Game(player, startLevel);
 
         Narrator.tell(UserFeedback.of(
@@ -20,35 +24,41 @@ public class Main {
                 "|    \\| | | |    /  / /",
                 "| |\\  \\ \\_/ / |\\ \\./ /___",
                 "\\_| \\_/\\___/\\_| \\_\\_____/"));
-        Narrator.pause(3000);
+        Narrator.tell(UserFeedback.of(DramaticEffect.WORD, "A game by Erik Kjosaik"));
+       /* Narrator.pause(3000);
         Narrator.newLine(3);
         boolean nameConfirmed = false;
         Narrator.tell(UserFeedback.of(genie));
-        String playerName = Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Hello there I am Lars. Who be thou?"));
-        // Gartner that has a magic quadrent
+        player.setName(Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Hello there I am Lars. Who be thou?")));
 
 
         while (!nameConfirmed) {
-            String confirmation = Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Would you like me to call you "+ playerName + "?"));
-            nameConfirmed = confirmation.equalsIgnoreCase("yes") || confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yupp");
+            String confirmation = Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Would you like me to call you "+ player.getName() + "?"));
+            nameConfirmed = confirmation.equalsIgnoreCase("yes") || confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yupp") || confirmation.equalsIgnoreCase("sure");
             if (!nameConfirmed) {
-                playerName = Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Well then what is thou name?"));
+                player.setName(Narrator.askForString(UserFeedback.of(DramaticEffect.LETTER, "Well then what is thou name?")));
             }
         }
-        Narrator.tell(UserFeedback.of(DramaticEffect.WORD, "Are you read " + playerName + "?",
-                "You can always call for help by yelling \"help\".",
-                "If you wish to end everything you just say the word quit and I wil put you out of your misery.",
-                "From ash you have risen to complete this final quest.,",
-                "The meaning of it you will seek in the place I will put you.",
+        Narrator.askForEnter(UserFeedback.of(DramaticEffect.LETTER, "Are you ready " + player.getName() + "?",
+                "You can always call for help by yelling \"help\"."));
+        Narrator.askForEnter(UserFeedback.of(DramaticEffect.LETTER, "If you wish to end everything you just say the word \"quit\" and I will put you out of your misery."));
+        Narrator.askForEnter(UserFeedback.of(DramaticEffect.LETTER,"After we part ways you will need to do the heavy lifting. You are in control. I have one final tip; Always examine your surroundings."));
+        Narrator.askForEnter(UserFeedback.of(DramaticEffect.LETTER,
+                "From ash you have risen to complete this final quest...",
+                "The meaning of it you will seek. In the place I will transfer you.",
                 "Good look explorer",
                 "Good luck and good bye"));
-        Narrator.pause(3000);
+        Narrator.newLine(10);
+        Narrator.tell(UserFeedback.of(
+                        "   ____ _                 _                                   ____             _                        \n" +
+                        "  / ___| |__   __ _ _ __ | |_ ___ _ __    ___  _ __   ___ _  |  _ \\  __ _ _ __| | ___ __   ___  ___ ___ \n" +
+                        " | |   | '_ \\ / _` | '_ \\| __/ _ \\ '__|  / _ \\| '_ \\ / _ (_) | | | |/ _` | '__| |/ / '_ \\ / _ \\/ __/ __|\n" +
+                        " | |___| | | | (_| | |_) | ||  __/ |    | (_) | | | |  __/_  | |_| | (_| | |  |   <| | | |  __/\\__ \\__ \\\n" +
+                        "  \\____|_| |_|\\__,_| .__/ \\__\\___|_|     \\___/|_| |_|\\___(_) |____/ \\__,_|_|  |_|\\_\\_| |_|\\___||___/___/\n" +
+                        "                   |_|                                                                                 "
+                ));
         Narrator.newLine(5);
-        Narrator.tell(UserFeedback.of("You awake on the floor. Everything is dark. Your head hurts.",
-                "You have no memory of what happened. The last thing you remember was the Genie. Lars? Was that his name?",
-                "That is in fact the only thing you remember."));
-        Narrator.pause(2000);
-        Narrator.tell(UserFeedback.of("Your vision is reappearing. It is still dark but you are abel to "));
+        Narrator.pause(2000);*/
         game.start();
     }
 

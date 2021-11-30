@@ -1,28 +1,37 @@
 package app.level;
 
+import app.level.implementations.*;
+
 import java.util.AbstractMap;
 import java.util.Map;
 
 public class LevelService {
-    private static final LevelService instance = new LevelService();
-    private final Map<String, Level> levels;
+    private static final LevelService INSTANCE = new LevelService();
+    private Map<String, Level> levels;
 
-
-    private LevelService(){
-        levels = Map.ofEntries(create(new Bar()), create(new Pinball())
-        );
-    }
+    private LevelService() {}
 
     private AbstractMap.SimpleEntry<String, Level> create(Level level) {
         return new AbstractMap.SimpleEntry<>(level.getClass().getSimpleName(), level);
     }
 
     public static LevelService getInstance() {
-        return instance;
+        return INSTANCE;
+    }
+
+    public void loadLevels() {
+        levels = Map.ofEntries(
+                create(new Bar()),
+                create(new Pinball()),
+                create(new BathroomDark()),
+                create(new Bathroom()),
+                create(new Hallway()),
+                create(new Kitchen())
+        );
     }
 
     public Level getStartLevel() {
-        return levels.get(Pinball.class.getSimpleName());
+        return levels.get(BathroomDark.class.getSimpleName());
     }
 
     public Level getLevel(String type) {

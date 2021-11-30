@@ -1,11 +1,11 @@
 package app.interaction;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Narrator {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final int dramaticEffectMs = 150;
 
     private Narrator() {}
 
@@ -14,11 +14,12 @@ public class Narrator {
         Command answer = null;
         while(answer == null || answer.incomprehensible()) {
             String input = scanner.nextLine();
-            Verb verb = Verbs.find(input);
-            Noun noun = Nouns.find(input);
+            String lowerCaseInput = input.toLowerCase(Locale.ROOT);
+            Verb verb = Verbs.find(lowerCaseInput);
+            Noun noun = Nouns.find(lowerCaseInput);
             answer = new Command(verb, noun);
             if (answer.incomprehensible()) {
-                tell(UserFeedback.of("I don't understand what you want."));
+                tell(UserFeedback.of("I don't understand what you want. Try the command \"help\" or \"quit\""));
             }
         }
         return answer;
@@ -29,27 +30,37 @@ public class Narrator {
         return scanner.nextLine();
     }
 
+    public static void askForEnter(UserFeedback userFeedback) {
+        tell(userFeedback);
+        tell(UserFeedback.of("⏎"));
+        scanner.nextLine();
+    }
+
     public static void tell(UserFeedback userFeedback) {
         String[] textLines = userFeedback.question();
         switch (userFeedback.effect()) {
             case NONE -> Arrays.stream(textLines).forEach(System.out::println);
             case LETTER -> {
-                Arrays.stream(String.join(" ", textLines).split("")).forEach(character -> {
-                    System.out.print(character);
-                    pause(dramaticEffectMs);
+                Arrays.stream(textLines).forEach(line -> {
+                    Arrays.stream(line.split("")).forEach(character -> {
+                        System.out.print(character);
+                        pause(70);
+                    });
+                    newLine();
                 });
-                newLine();
             }
             case WORD -> {
-                Arrays.stream(String.join(" ", textLines).split(" ")).forEach(character -> {
-                    System.out.print(character);
-                    pause(dramaticEffectMs);
+                Arrays.stream(textLines).forEach(line -> {
+                    Arrays.stream(line.split(" ")).forEach(word -> {
+                        System.out.print(word + " ");
+                        pause(500);
+                    });
+                    newLine();
                 });
-                newLine();
             }
             case LINE -> Arrays.stream(textLines).forEach(line -> {
                 System.out.println(line);
-                pause(dramaticEffectMs);
+                pause(2000);
             });
         }
     }
