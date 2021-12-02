@@ -32,7 +32,7 @@ public class BathroomDark extends Level {
     @Override
     public UserFeedback levelDescription(Game game) {
         Narrator.tell(UserFeedback.of("You awake on the floor. Everything is dark. Your head hurts.",
-                "You have no memory of what happened. The last thing you remember was the Genie. Lars? Was that his name?",
+                "You have no memory of what happened. The last thing you remember was the Genie. Linus? Was that his name?",
                 "That is in fact the only thing you remember."));
         Narrator.pause(10000);
         return UserFeedback.of("Your vision is reappearing. You can see a sliver of light at floor level.",

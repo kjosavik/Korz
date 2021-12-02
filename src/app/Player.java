@@ -1,7 +1,7 @@
 package app;
 
 public class Player {
-    private String name = "Player";
+    private String name = "Tux";
 
     public String getName() {
         return name;

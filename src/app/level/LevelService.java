@@ -26,7 +26,11 @@ public class LevelService {
                 create(new BathroomDark()),
                 create(new Bathroom()),
                 create(new Hallway()),
-                create(new Kitchen())
+                create(new Kitchen()),
+                create(new Death()),
+                create(new OfficeNorth()),
+                create(new OfficeSouth()),
+                create(new Outside())
         );
     }
 
@@ -37,4 +41,7 @@ public class LevelService {
     public Level getLevel(String type) {
         return levels.get(type);
     }
+
+
+
 }

@@ -32,12 +32,15 @@ public class Narrator {
 
     public static void askForEnter(UserFeedback userFeedback) {
         tell(userFeedback);
-        tell(UserFeedback.of("⏎"));
+        tell(UserFeedback.of("press ⏎"));
         scanner.nextLine();
     }
 
     public static void tell(UserFeedback userFeedback) {
         String[] textLines = userFeedback.question();
+        if (textLines.length == 1 && textLines[0].equals("")) {
+            return;
+        }
         switch (userFeedback.effect()) {
             case NONE -> Arrays.stream(textLines).forEach(System.out::println);
             case LETTER -> {

@@ -1,25 +1,23 @@
 package app;
 
 import app.interaction.Command;
+import app.interaction.Noun;
 import app.interaction.UserFeedback;
 import app.level.implementations.Level;
-import app.movableItems.CoffeePot;
-import app.movableItems.Item;
+import app.movableitems.ItemService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
 public class Game {
     private final Player player;
     private Level currentLevel;
     private Level previousLevel;
-    private List<Item> gameItems;
+    private final ItemService itemService = ItemService.getInstance();
+    private boolean npcAlive = true;
 
     public Game(Player player, Level currentLevel) {
         this.player = player;
         this.currentLevel = currentLevel;
-        initItems();
     }
 
     public void start() {
@@ -36,20 +34,32 @@ public class Game {
         return previousLevel;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     public Level getCurrentLevel() {
         return currentLevel;
     }
 
-    private void initItems() {
-        gameItems = new ArrayList<>();
-        gameItems.add(new CoffeePot());
-    }
 
     public Function<Game, UserFeedback> getItemAction(Command command) {
-        return gameItems.stream().map(item -> item.getLegalAction(command, getCurrentLevel().getClass().getSimpleName())).toList().get(0);
+        return itemService.getItemAction(command, currentLevel.getClass().getSimpleName());
+    }
+
+    public boolean isItemInSpawn(Noun item) {
+        return itemService.isItemInSpawn(item);
+    }
+
+    public boolean isItemOnPlayer(Noun item) {
+        return itemService.isItemOnPlayer(item);
+    }
+
+    public boolean isNpcAlive() {
+        return npcAlive;
+    }
+
+    public void setNpcAlive(boolean npcAlive) {
+        this.npcAlive = npcAlive;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

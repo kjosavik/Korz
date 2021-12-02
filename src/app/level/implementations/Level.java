@@ -4,6 +4,7 @@ import app.Game;
 import app.interaction.*;
 import app.level.Direction;
 import app.level.LevelService;
+import app.movableitems.ItemService;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public abstract class Level {
     private final EnumMap<Direction, String> borderingLevels = new EnumMap<>(Direction.class);
     protected final HashMap<Command, Function<Game, UserFeedback>> legalActions = new HashMap<>();
     protected final LevelService levelService = LevelService.getInstance();
+    protected final ItemService itemService = ItemService.getInstance();
 
     protected UserFeedback undefinedDirection = UserFeedback.of("You can't go there");
     protected UserFeedback nothingInThatDirection = UserFeedback.of("There is nothing in that direction");
@@ -32,8 +34,9 @@ public abstract class Level {
         addDefaultHelp();
     }
 
-    public final void start(Game game) {
-        Command command = Narrator.askForCommand(levelDescription(game));
+    public void start(Game game) {
+        Narrator.tell(levelDescription(game));
+        Command command = Narrator.askForCommand(itemService.itemDescriptionForLevel(game.getCurrentLevel().getClass().getSimpleName()));
         while (!command.quit()) {
             UserFeedback feedback = actOnCommand(command, game);
             command = Narrator.askForCommand(feedback);
@@ -59,6 +62,11 @@ public abstract class Level {
             Level nextLevel = levelService.getLevel(directionString);
             game.changeLevel(nextLevel);
         }
+
+        if (command.verb().equals(Verb.INVENTORY)) {
+            return UserFeedback.of(itemService.itemsOnPlayer());
+        }
+
         Function<Game, UserFeedback> legalAction = legalActions.containsKey(command) ? legalActions.get(command) : game.getItemAction(command);
         if (legalAction == null) {
             return canTDoThat;
@@ -93,7 +101,7 @@ public abstract class Level {
     }
 
     private void addDefaultHelp() {
-        legalActions.put(Command.of(Verb.HELP, Noun.NONE), (game) -> UserFeedback.of("Remember what Lars said. Examine your surroundings.",
+        legalActions.put(Command.of(Verb.HELP, Noun.NONE), (game) -> UserFeedback.of("Remember what Linus said. Examine your surroundings.",
                 "Try the command \"examine room\" or for example \"Look at the knife\"",
                 "For simplicities sake you are always facing north. Let's say you are drawn to Santa or something"));
     }

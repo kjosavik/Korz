@@ -18,7 +18,7 @@ public class Hallway extends Level {
             Narrator.tell(UserFeedback.of(DramaticEffect.WORD,
                     "FREEDOM! Your anxiety subsides and you catch your breath."));
             Narrator.tell(UserFeedback.of(
-                    "Where do I go now? What was it that Lars wanted med to do?",
+                    "Where do I go now? What was it that Linus wanted med to do?",
                     "I must find out what he wanted"
                     ));
             firstVisit = false;

@@ -1,4 +1,4 @@
-package app.movableItems;
+package app.movableitems;
 
 import app.Game;
 import app.interaction.Command;
@@ -11,9 +11,10 @@ import java.util.function.Function;
 
 public class Item {
     protected final HashMap<Command, Function<Game, UserFeedback>> legalActions = new HashMap<>();
-    private String position;
-    protected Noun itemNoun;
     private final String name;
+    private String position;
+    private boolean hasBeenMoved = false;
+    protected Noun itemNoun;
 
     public Item(String startPosition, Noun itemNoun, String name) {
         position = startPosition;
@@ -30,10 +31,11 @@ public class Item {
     }
 
     public UserFeedback pickUp() {
+        hasBeenMoved = true;
         position = "player";
         legalActions.put(Command.of(Verb.DROP, itemNoun), game -> this.drop(game.getCurrentLevel().getClass().getSimpleName()));
         legalActions.remove(Command.of(Verb.PICK_UP, itemNoun));
-        return UserFeedback.of("You pick up " + name + ". ");
+        return UserFeedback.of("You pick up " + name + ". You can check your inventory by typing \"inventory\"");
     }
 
     public UserFeedback drop(String position) {
@@ -41,5 +43,21 @@ public class Item {
         legalActions.put(Command.of(Verb.PICK_UP, itemNoun), game -> this.pickUp());
         legalActions.remove(Command.of(Verb.DROP, itemNoun));
         return UserFeedback.of("You drop " + name + ". ");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean hasBeenMoved() {
+        return hasBeenMoved;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public Noun getItemNoun() {
+        return itemNoun;
     }
 }

@@ -11,7 +11,7 @@ public class Nouns {
     static {
         insert(List.of("knife"), Noun.KNIFE);
         insert(List.of("coffee", "pot"), Noun.COFFEE_POT);
-        insert(List.of("beer", "bottle"), Noun.BEER_BOTTLE);
+        insert(List.of("beer", "bottle", "drink", "beverage", "alcohol"), Noun.BEER_BOTTLE);
         insert(List.of("left", "west"), Noun.LEFT);
         insert(List.of("right", "east"), Noun.RIGHT);
         insert(List.of("north"), Noun.UP);
@@ -24,6 +24,16 @@ public class Nouns {
         insert(List.of("toilet", "shit", "piss", "poo", "poop"), Noun.TOILET);
         insert(List.of("faucet", "sink"), Noun.FAUCET);
         insert(List.of("self", "yourself"), Noun.SELF);
+        insert(List.of("cabinets", "cupboards", "cabinet", "kitchen"), Noun.CABINETS);
+        insert(List.of("bar", "counter"), Noun.BAR);
+        insert(List.of("fridge", "refrigerator"), Noun.FRIDGE);
+        insert(List.of("table", "pinball"), Noun.PINBALL);
+        insert(List.of("clothes", "coats", "shoes", "coat", "shoe"), Noun.CLOTHES);
+        insert(List.of("board", "whiteboard"), Noun.WHITEBOARD);
+        insert(List.of("man", "guy", "person"), Noun.MAN);
+        insert(List.of("laptop", "computer"), Noun.COMPUTER);
+        insert(List.of("terminal", "cmd", "command line", "iTerm"), Noun.TERMINAL);
+        insert(List.of("push"), Noun.PUSH);
     }
 
     private Nouns() {}
