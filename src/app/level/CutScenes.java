@@ -5,8 +5,8 @@ import app.interaction.DramaticEffect;
 import app.interaction.Narrator;
 import app.interaction.UserFeedback;
 
-public class Intro {
-    public void play(Player player) {
+public class CutScenes {
+    public static void intro(Player player) {
         Narrator.pause(3000);
         Narrator.newLine(3);
         boolean nameConfirmed = false;
@@ -41,6 +41,24 @@ public class Intro {
         ));
         Narrator.newLine(5);
         Narrator.pause(2000);
+    }
+
+    public static void gameEnding(Player player) {
+        Narrator.pause(2000);
+        Narrator.newLine(10);
+        Narrator.tell(UserFeedback.of(DramaticEffect.LETTER,"CONGRATULATIONS"));
+        Narrator.pause(2000);
+        Narrator.tell(UserFeedback.of(genie));
+        Narrator.tell(UserFeedback.of(DramaticEffect.WORD, "You did well "+ player.getName()));
+        Narrator.askForEnter(UserFeedback.of( "I see you are fluent in git.",
+                "You have now become a Software Developer.",
+                "Actually you didn't even use Stack Overflow. You are a Senior Software Developer",
+                "I know of a cool company you should get in touch with.",
+                "Have a look: https://kodeworks.no"));
+        Narrator.askForEnter(UserFeedback.of("I have to go now. A retard just sent something retarded to the Linux Kernal Mailing List."));
+        Narrator.pause(1000);
+        Narrator.tell(UserFeedback.of(DramaticEffect.LETTER, "OMG"));
+        Narrator.newLine(3);
     }
 
 

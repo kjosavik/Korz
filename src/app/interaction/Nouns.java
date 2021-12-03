@@ -9,6 +9,7 @@ public class Nouns {
     private static final HashMap<String, Noun> map = new HashMap<>();
 
     static {
+        insert(List.of("push"), Noun.PUSH);
         insert(List.of("knife"), Noun.KNIFE);
         insert(List.of("coffee", "pot"), Noun.COFFEE_POT);
         insert(List.of("beer", "bottle", "drink", "beverage", "alcohol"), Noun.BEER_BOTTLE);
@@ -33,7 +34,10 @@ public class Nouns {
         insert(List.of("man", "guy", "person"), Noun.MAN);
         insert(List.of("laptop", "computer"), Noun.COMPUTER);
         insert(List.of("terminal", "cmd", "command line", "iTerm"), Noun.TERMINAL);
-        insert(List.of("push"), Noun.PUSH);
+        insert(List.of("status", "commit"), Noun.STATUS);
+        insert(List.of("out"), Noun.OUT);
+        insert(List.of("src"), Noun.SRC);
+        insert(List.of("log"), Noun.LOG);
     }
 
     private Nouns() {}
@@ -47,10 +51,13 @@ public class Nouns {
     }
 
     public static Noun find(String input) {
+        if (input.equals(" ..")) {
+            return Noun.PREV_FOLDER;
+        }
         List<String> matches= Pattern.compile(pattern()).matcher(input).results().map(MatchResult::group).toList();
         if (matches.isEmpty()) {
             return Noun.NONE;
         }
-        return map.get(matches.get(0));
+        return map.get(matches.get(matches.size()-1));
     }
 }

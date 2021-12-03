@@ -9,7 +9,7 @@ public class Hallway extends Level {
     private boolean firstVisit = true;
 
     public Hallway() {
-        super(Kitchen.class.getSimpleName(), Bathroom.class.getSimpleName(), Bar.class.getSimpleName(), null);
+        super(Kitchen.class.getSimpleName(), Bathroom.class.getSimpleName(), Bar.class.getSimpleName(), OfficeNorth.class.getSimpleName());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Hallway extends Level {
                 "You are in a hallway. It has wooden floors and white walls. Kind of dull. There isn't much here except the exits.",
                 "To the north is a wooden table and a couple of chairs. Beyond that there is another larger room.",
                 "To the east is the bathroom.",
-                "There is a small step down that leads to a larger room to the south and to the east.",
+                "There is a small step down that leads to a larger room to the south and to the west.",
                 cameFrom(game));
     }
 }

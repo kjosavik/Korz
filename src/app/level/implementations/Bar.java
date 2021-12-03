@@ -8,7 +8,7 @@ public class Bar extends Level {
     private boolean hasPickedUpBefore = false;
 
     public Bar() {
-        super(null, null, Pinball.class.getSimpleName(), OfficeNorth.class.getSimpleName());
+        super(Hallway.class.getSimpleName(), null, Pinball.class.getSimpleName(), OfficeSouth.class.getSimpleName());
         legalActions.put(Command.of(Verb.PICK_UP, Noun.BEER_BOTTLE), game -> {
             if (!hasPickedUpBefore) {
                 beerDrank++;

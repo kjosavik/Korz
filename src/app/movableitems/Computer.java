@@ -2,7 +2,6 @@ package app.movableitems;
 
 import app.interaction.*;
 import app.level.LevelService;
-import app.level.implementations.Level;
 import app.level.implementations.OfficeNorth;
 import app.level.implementations.Terminal;
 
@@ -41,9 +40,6 @@ public class Computer extends Item {
             computerOpen = false;
             return UserFeedback.of("The computer is locked");
         });
-    }
-
-    private void terminal() {
-
+        legalActions.put(Command.of(Verb.GIVE, itemNoun), game -> UserFeedback.of("\"I don't want that.\" You agree with him. He doesn't deserve it."));
     }
 }

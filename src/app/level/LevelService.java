@@ -30,7 +30,8 @@ public class LevelService {
                 create(new Death()),
                 create(new OfficeNorth()),
                 create(new OfficeSouth()),
-                create(new Outside())
+                create(new Outside()),
+                create(new Terminal())
         );
     }
 

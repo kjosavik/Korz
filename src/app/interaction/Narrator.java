@@ -15,11 +15,29 @@ public class Narrator {
         while(answer == null || answer.incomprehensible()) {
             String input = scanner.nextLine();
             String lowerCaseInput = input.toLowerCase(Locale.ROOT);
-            Verb verb = Verbs.find(lowerCaseInput);
-            Noun noun = Nouns.find(lowerCaseInput);
-            answer = new Command(verb, noun);
+            VerbResult verbResult = Verbs.find(lowerCaseInput);
+            Noun noun = Nouns.find(verbResult.inputSubString());
+            answer = new Command(verbResult.verb(), noun);
             if (answer.incomprehensible()) {
                 tell(UserFeedback.of("I don't understand what you want. Try the command \"help\" or \"quit\""));
+            }
+        }
+        return answer;
+    }
+
+
+    public static Command askForTerminalCommand(UserFeedback userFeedback, UserFeedback preFix) {
+        tell(userFeedback);
+        System.out.print(preFix.question()[0]);
+        Command answer = null;
+        while(answer == null || answer.incomprehensible()) {
+            String input = scanner.nextLine();
+            String lowerCaseInput = input.toLowerCase(Locale.ROOT);
+            VerbResult verbResult = Verbs.find(lowerCaseInput);
+            Noun noun = Nouns.find(verbResult.inputSubString());
+            answer = new Command(verbResult.verb(), noun);
+            if (answer.incomprehensible()) {
+                tell(UserFeedback.of("I don't understand what you want. You can exit the terminal with \"exit\""));
             }
         }
         return answer;
@@ -63,7 +81,7 @@ public class Narrator {
             }
             case LINE -> Arrays.stream(textLines).forEach(line -> {
                 System.out.println(line);
-                pause(2000);
+                pause(200);
             });
         }
     }
