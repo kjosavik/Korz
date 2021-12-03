@@ -11,7 +11,7 @@ public class Bathroom extends Level {
     public Bathroom() {
         nothingInThatDirection = closedDoorFeedback;
         UserFeedback faucet = UserFeedback.of("You wash your hands, but for no good. You are still filthy.");
-        UserFeedback toilet = UserFeedback.of("You feel no need to empty your bowels. But you flush the toilet because you feel like it. Swoooosh. What a waist of water.");
+        UserFeedback toilet = UserFeedback.of("You feel no need to empty your bowels. But you flush the toilet because you feel like it. Swoooosh. What a waste of water.");
         legalActions.put(Command.of(Verb.USE, Noun.DOOR), game -> {
             if (doorOpen) {
                 nothingInThatDirection = closedDoorFeedback;
