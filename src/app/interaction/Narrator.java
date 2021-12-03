@@ -11,6 +11,7 @@ public class Narrator {
 
     public static Command askForCommand(UserFeedback userFeedback) {
         tell(userFeedback);
+        newLine();
         Command answer = null;
         while(answer == null || answer.incomprehensible()) {
             String input = scanner.nextLine();
@@ -22,6 +23,7 @@ public class Narrator {
                 tell(UserFeedback.of("I don't understand what you want. Try the command \"help\" or \"quit\""));
             }
         }
+        newLine();
         return answer;
     }
 
