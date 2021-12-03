@@ -8,8 +8,9 @@ The game describes what happens to you based on the commands you type.
 
 
 ### Prerequisites
-* This game requires Java Runtime Environment to play
+* This game requires Java Runtime Environment (JRE) to play
   * You can check if you have it installed by running `java --version`
+  * Java can be downloaded [here](https://www.oracle.com/java/technologies/downloads/)
 
 * A terminal or console is required
 ### Install
