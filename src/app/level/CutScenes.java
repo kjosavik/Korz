@@ -55,7 +55,7 @@ public class CutScenes {
                 "Actually you didn't even use Stack Overflow. You are a Senior Software Developer",
                 "I know of a cool company you should get in touch with.",
                 "Have a look: https://kodeworks.no"));
-        Narrator.askForEnter(UserFeedback.of("I have to go now. A retard just sent something retarded to the Linux Kernal Mailing List."));
+        Narrator.askForEnter(UserFeedback.of("I have to go now. A retard just sent something retarded to the Linux Kernel Mailing List."));
         Narrator.pause(1000);
         Narrator.tell(UserFeedback.of(DramaticEffect.LETTER, "OMG"));
         Narrator.newLine(3);
