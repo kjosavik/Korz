@@ -14,9 +14,9 @@ public class OfficeSouth extends Level {
             drawnOnWhiteBoard = true;
             return  UserFeedback.of("You draw a phallic shape on the board and chuckle");
         });
-        legalActions.put(Command.of(Verb.USE, Noun.WHITEBOARD), game -> {
+        legalActions.put(Command.of(Verb.EXAMINE, Noun.WHITEBOARD), game -> {
             if (drawnOnWhiteBoard) {
-                return UserFeedback.of("There is a drawing og a penis on the whiteboard.");
+                return UserFeedback.of("There is a drawing of a penis on the whiteboard.");
             }
             return UserFeedback.of("The whiteboard is empty");
         });
