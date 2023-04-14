@@ -21,7 +21,7 @@ public class Kitchen extends Level {
     @Override
     public UserFeedback levelDescription(Game game) {
         Narrator.tell(
-        UserFeedback.of("You enter what might resemble a kitchen. Though there isn't much here there are cabinets and a stove placed along the walls.",
+        UserFeedback.of("You enter what might resemble a kitchen. Though there isn't much here. There are cabinets and a stove placed along the walls.",
                 "It has seen better days. There is a coffee machine in the the corner of the room. You could sure go for some hot joe right now."));
 
         if (firstVisit) {

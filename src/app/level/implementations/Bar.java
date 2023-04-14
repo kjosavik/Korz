@@ -25,12 +25,12 @@ public class Bar extends Level {
 
     private UserFeedback reactToBeer() {
         switch (beerDrank) {
-            case 2 -> Narrator.tell(UserFeedback.of("Your begining to like this."));
+            case 2 -> Narrator.tell(UserFeedback.of("You're beginning to like this."));
             case 4 -> Narrator.tell(UserFeedback.of("You begin to feel tipsy"));
             case 5 -> Narrator.tell(UserFeedback.of("U R noww druuunk"));
             case 6 -> Narrator.tell(UserFeedback.of("iF Youuuuuu keEp goinnnnnnng youll DIE"));
             case 7 -> {
-                Narrator.tell(UserFeedback.of(DramaticEffect.WORD, "U diE fRomm Alchooohll  poisening ☠️"));
+                Narrator.tell(UserFeedback.of(DramaticEffect.WORD, "U diE fRomm Alchooohll poisoning ☠️"));
                 throw new NullPointerException("Cannot invoke life because liver was null");
             }
             default -> Narrator.tell(UserFeedback.of("You chug a beer."));
