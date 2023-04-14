@@ -28,7 +28,7 @@ public class Nouns {
         insert(List.of("cabinets", "cupboards", "cabinet", "kitchen"), Noun.CABINETS);
         insert(List.of("bar", "counter"), Noun.BAR);
         insert(List.of("fridge", "refrigerator"), Noun.FRIDGE);
-        insert(List.of("table", "pinball"), Noun.PINBALL);
+        insert(List.of("table", "pinball", "start"), Noun.PINBALL);
         insert(List.of("clothes", "coats", "shoes", "coat", "shoe"), Noun.CLOTHES);
         insert(List.of("board", "whiteboard"), Noun.WHITEBOARD);
         insert(List.of("man", "guy", "person"), Noun.MAN);
