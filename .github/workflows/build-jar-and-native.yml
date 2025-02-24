@@ -29,7 +29,7 @@ jobs:
       - name: Package JAR
         run: |
           mkdir -p dist
-          jar cfm dist/Korz.jar src/META-INF/MANIFEST.MF -C out .
+          jar cfm dist/Korz.jar src/META-INF/MANIFEST.MF -C out/classes .
 
       - name: Upload JAR as Artifact
         uses: actions/upload-artifact@v4
