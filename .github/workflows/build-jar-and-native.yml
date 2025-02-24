@@ -67,13 +67,13 @@ jobs:
       - name: Compile Native Executable (Windows)
         if: runner.os == 'Windows'
         run: |
-          native-image -jar build/Korz.jar -o korz.exe
+          native-image -jar build/Korz.jar -o korz-windows.exe
 
       - name: Upload Executables as Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: korz-${{ runner.os }}
-          path: korz-*
+          path: korz-${{ runner.os }}*
 
   release:
     name: Create GitHub Release
