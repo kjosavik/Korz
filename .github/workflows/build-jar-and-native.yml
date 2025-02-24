@@ -1,0 +1,100 @@
+name: Build JAR and Native Executables
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-jar:
+    name: Build JAR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compile Java Files
+        run: |
+          mkdir -p out/classes
+          javac -d out/classes $(find src -name "*.java")
+
+      - name: Package JAR
+        run: |
+          mkdir -p build
+          jar cfm dist/Korz.jar src/META-INF/MANIFEST.MF -C out .
+
+      - name: Upload JAR as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: korz-jar
+          path: dist/Korz.jar
+
+  build-native:
+    name: Build Native Executables on ${{ matrix.os }}
+    needs: build-jar
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Download Built JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: korz-jar
+          path: build/
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+
+      - name: Compile Native Executable (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          native-image -jar build/Korz.jar -o korz-${{ runner.os }}
+
+      - name: Compile Native Executable (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          native-image -jar build/Korz.jar -o korz.exe
+
+      - name: Upload Executables as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: korz-${{ runner.os }}
+          path: korz-*
+
+  release:
+    name: Create GitHub Release
+    needs: build-native
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Download JAR Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: korz-jar
+          path: artifacts/
+
+      - name: Download Native Executables
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*
+          token: ${{ secrets.GITHUB_TOKEN }}
