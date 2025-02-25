@@ -43,7 +43,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest, macos-13] # macos-13 is mac with Intel processor
 
     steps:
       - name: Download Built JAR
@@ -59,10 +59,20 @@ jobs:
           java-version: '17'
           components: 'native-image'
 
-      - name: Compile Native Executable (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Compile Native Executable (Linux)
+        if: runner.os == 'Linux'
         run: |
-          native-image -jar build/Korz.jar -o korz-${{ runner.os }}
+          native-image -jar build/Korz.jar -o korz-linux
+
+      - name: Compile Native Executable (macOS ARM)
+        if: runner.os == 'macOS' && runner.arch == 'ARM64'
+        run: |
+          native-image -jar build/Korz.jar -o korz-macos-arm64
+
+      - name: Compile Native Executable (macOS Intel)
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        run: |
+          native-image -jar build/Korz.jar -o korz-macos-x64
 
       - name: Compile Native Executable (Windows)
         if: runner.os == 'Windows'
@@ -72,7 +82,7 @@ jobs:
       - name: Upload Executables as Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: korz-${{ runner.os }}
+          name: korz-${{ runner.os }}-${{ runner.arch }}
           path: korz-${{ runner.os }}*
 
   release:
@@ -88,11 +98,30 @@ jobs:
           name: korz-jar
           path: artifacts/
 
-      - name: Download Native Executables
+      - name: Download Linux Executable
         uses: actions/download-artifact@v4
         with:
+          name: korz-Linux
           path: artifacts/
 
+      - name: Download macOS ARM Executable
+        uses: actions/download-artifact@v4
+        with:
+          name: korz-macOS-arm64
+          path: artifacts/
+
+      - name: Download macOS Intel Executable
+        uses: actions/download-artifact@v4
+        with:
+          name: korz-macOS-x64
+          path: artifacts/
+
+      - name: Download Windows Executable
+        uses: actions/download-artifact@v4
+        with:
+          name: korz-Windows
+          path: artifacts/
+          
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
