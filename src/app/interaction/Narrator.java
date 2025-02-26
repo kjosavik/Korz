@@ -52,7 +52,7 @@ public class Narrator {
 
     public static void askForEnter(UserFeedback userFeedback) {
         tell(userFeedback);
-        tell(UserFeedback.of("press ⏎"));
+        tell(UserFeedback.of("(press Enter)"));
         scanner.nextLine();
     }
 
