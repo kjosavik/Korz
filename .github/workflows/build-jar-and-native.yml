@@ -60,7 +60,6 @@ jobs:
           components: 'native-image'
 
       - name: Compile Native Executable
-        if: runner.os == 'Linux'
         run: |
           native-image -jar build/Korz.jar -o korz-${{ runner.os }}-${{ runner.arch }}
 
